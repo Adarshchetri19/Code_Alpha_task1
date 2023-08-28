@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parking problem Survey</title>
+<link rel="stylesheet" href="styles.css"> 
+</head>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const labels = document.querySelectorAll('.radio-label');
+    
+    labels.forEach(label => {
+      label.addEventListener('click', function () {
+        const value = this.getAttribute('data-value');
+        const radioButton = this.querySelector('input[type="radio"]');
+        
+        radioButton.checked = true;
+        
+        // Add clicked style
+        this.classList.add('clicked');
+        
+        // Optional: Remove clicked style after a short delay (e.g., 500 ms)
+        setTimeout(() => {
+          this.classList.remove('clicked');
+        }, 500);
+        
+        console.log(`Image clicked: ${value}`);
+      });
+    });
+  });
+  </script>
+  
+<body style="background-color:rgb(187, 241, 52);">
+  <div class="App">
+    <h1>Parking problem Survey</h1>
+    <div class="progress-bar">
+ <!-- Progress icon for the first page -->
+      <div class="progress-line" style="width: 0;"></div> <!-- Progress line -->
+    </div>
+    <form id="surveyForm" class="survey-form"  action="connection.php" method="post">
+      <!-- Page 1 content -->
+      <div class="page" id="page1">
+        <h2> Information</h2>
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" class="input-field" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email (optional):</label>
+          <input type="email" id="email" name="email" class="input-field">
+        </div>
+        <div class="form-group">
+          <label>Gender:</label><br>
+          <div class="radio-group">
+            <label for="male" class="radio-label">
+              <input type="radio" name="gender" value="m" id="male" class="radio-input" />
+              Male 
+            </label>
+            <label for="female" class="radio-label">
+              <input type="radio" name="gender" value="f" id="female" class="radio-input" />
+              Female 
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="department">Department</label>
+          <input type="text" id="department" name="department" class="input-field" required>
+        </div>
+        <div class="form-group">
+          <label for="year">which type of vehicle you own: </label>
+          <input type="number" id="year" name="year" class="input-field" required>
+        </div>
+        <button type="button" class="next-button" onclick="nextPage(2)">Next</button>
+      </div>
+      
+      <!-- ... Add other pages here -->
+      <!-- Inside the <form> element -->
+
+<!-- Page 2 content -->
+ 
+<div class="page" id="page2">
+  <h2>Parking Situation</h2>
+  <label for="college">Which parking lot do you usually use?</label><br>
+  <input type="text" id="college" name="college" required>
+  <h2>Vehicle Information</h2>
+  <label>Do you own a vehicle?</label>
+  <br>
+  <div class="radio-group">
+    <label for="useparking" data-value="Yes" class="radio-label" onclick="toggleClickImage(this)">
+      <input type="radio" id="useparking" name="useparking" value="Yes">
+      <img src="YESPIC.png" alt="Yes Image" >
+      <span></span>
+    </label>
+  
+    <label for="useparking"  data-value="No" class="radio-label" onclick="toggleClickImage(this)">
+      <input type="radio" id="useparking" name="useparking" value="No">
+      <img src="https://images8.alphacoders.com/857/857892.png" alt="No Image">
+      <span></span>
+    </label>
+  </div>
+  
+  
+  
+  <br>
+  <button type="button" class="prev-button" onclick="prevPage(1)">Previous</button>
+  <button type="button" class="next-button" onclick="nextPage(3)">Next</button>
+</div>
+<!-- Inside the <form> element -->
+
+<!-- Page 3 content -->
+ 
+<div class="page" id="page3">
+  <h2>Opinions on Parking Issues</h2>
+  <label for="opinion">What are your opinions regarding the current parking situation on campus?</label>
+  <select id="opinion" name="opinion">
+    <option value="Strongly Agree">Strongly Agree</option>
+    <option value="Agree">Agree</option>
+    <option value="Neutral">Neutral</option>
+    <option value="Disagree">Disagree</option>
+    <option value="Strongly Disagree">Strongly Disagree</option>
+  </select>
+  
+  <h2>Reasons for Your Opinion</h2>
+  <label for="opinionReason">Why do you hold this opinion?</label>
+  <textarea id="opinionReason" name="opinionReason" rows="2"></textarea>
+  <button type="button" class="prev-button" onclick="prevPage(2)">Previous</button>
+  <button type="button" class="next-button" onclick="nextPage(4)">Next</button>
+</div>
+<!-- Inside the <form> element -->
+
+    <div class="page" id="page4">
+       
+      
+        <h2>Reasons for Your Opinions</h2>
+        <label>Please provide reasons for your opinions on the parking situation.</label>
+        <div class="checkbox-group">
+          <label>
+            <input type="checkbox" name="plotUsage[]" value="Convenient Parking Availability">
+            Convenient Parking Availability
+          </label><br>
+          <label>
+            <input type="checkbox" name="plotUsage[]" value="Access to educational apps">
+            Access to Campus Resources
+
+
+          </label><br>
+          <label>
+            <input type="checkbox" name="plotUsage[]" value="Emergency Parking Needs">
+            Emergency Parking Needs
+          </label><br>
+          <label>
+            <input type="checkbox" name="plotUsage[]" value="Recording Campus Events">
+            Recording Campus Events
+          </label><br>
+          <label>
+            <input type="checkbox" name="plotUsage[]" value="Other">
+            Other (specify): <input type="text" name="mobileUsageOther">
+          </label><br>
+        </div>
+      
+        <h2>Potential Concerns</h2>
+        <label>What concerns do you have about parking on campus?</label>
+        <div class="checkbox-group">
+          <label>
+            <input type="checkbox" name="concerns[]" value="Concerns about Parking Availability">
+            Concerns about Parking Availability
+          </label><br>
+          <label>
+            <input type="checkbox" name="concerns[]" value="Privacy and Security Concerns">
+            Privacy and Security Concerns
+          </label><br>
+          <label>
+            <input type="checkbox" name="concerns[]" value="Parking Violations and Misuse">
+            Parking Violations and Misuse
+          </label><br>
+          <label>
+            <input type="checkbox" name="concerns[]" value="Disruption of Traffic and Campus Flow">
+            Disruption of Traffic and Campus Flow
+          </label><br>
+          <label>
+            <input type="checkbox" name="concerns[]" value="Other">
+            Other (specify): <input type="text" name="concernsOther">
+          </label><br>
+        </div>
+      
+        <button type="button" class="prev-button" onclick="prevPage(3)">Previous</button>
+    
+  <button type="button" class="next-button" onclick="nextPage(5)">Next</button>
+      </div>
+      <!-- Inside the <form> element -->
+
+<div class="page" id="page5">
+    <h2>Alternative Solutions</h2>
+    <label for="alternativeSolutions">What alternative strategies can be adopted to alleviate parking issues ?</label>
+    <textarea id="alternativeSolutions" name="alternativeSolutions" rows="4"></textarea>
+  
+    <h2>Additional Comments</h2>
+    <label for="additionalComments">Do you have any additional comments or suggestions related to this topic?</label>
+    <textarea id="additionalComments" name="additionalComments" rows="4"></textarea>
+  
+    <h2>Final Thoughts</h2>
+    <label for="finalThoughts">Would you like to share any final thoughts or considerations regarding this topic?</label>
+    <textarea id="finalThoughts" name="finalThoughts" rows="4"></textarea>
+  
+    <button type="button" class="prev-button" onclick="prevPage(4)">Previous</button>
+    <button type="submit" onclick="alert('FORM SUBMITTED')">Submit</button>
+  </div>
+  
+
+    </form>
+  </div>
+  <script src="script.js"></script> <!-- Include your JavaScript file here -->
+</body>
+</html>
